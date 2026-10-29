@@ -1,0 +1,126 @@
+name: Publish verified AURA Android APK (manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      channel:
+        description: "Android update channel"
+        required: true
+        type: choice
+        options: [stable, lite]
+      source_run_id:
+        description: "Approved successful workflow run ID in PRIVATE source repository"
+        required: true
+        type: string
+      source_artifact_name:
+        description: "Exact APK artifact name in the private workflow run"
+        required: true
+        type: string
+      expected_sha256:
+        description: "SHA-256 independently verified on original signed APK (64 lowercase hex)"
+        required: true
+        type: string
+      version_code:
+        description: "Android versionCode inside APK"
+        required: true
+        type: string
+      version_name:
+        description: "Android versionName inside APK"
+        required: true
+        type: string
+      release_notes:
+        description: "Brief public changelog, no secrets"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: aura-update-release
+  cancel-in-progress: false
+
+jobs:
+  verify-and-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PUBLIC_REPO: eusam66/AURA-Update
+      SOURCE_REPO: eusam66/AURA-TV-Player
+      SOURCE_READ_TOKEN: ${{ secrets.AURA_SOURCE_READ_TOKEN }}
+      GH_TOKEN: ${{ github.token }}
+      CHANNEL: ${{ inputs.channel }}
+      SOURCE_RUN_ID: ${{ inputs.source_run_id }}
+      SOURCE_ARTIFACT: ${{ inputs.source_artifact_name }}
+      EXPECTED_SHA: ${{ inputs.expected_sha256 }}
+      VERSION_CODE: ${{ inputs.version_code }}
+      VERSION_NAME: ${{ inputs.version_name }}
+      NOTES: ${{ inputs.release_notes }}
+      CERT_SHA256: f5e7ba845b611c41d3b8354a04c461609b47b9eacfa59f25b16bafcfb144e3b9
+    steps:
+      - name: Checkout public distribution repo
+        uses: actions/checkout@v4
+      - name: Gate approval, secrets and version metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ -n "$SOURCE_READ_TOKEN" ]] || { echo "::error::Missing AURA_SOURCE_READ_TOKEN secret"; exit 1; }
+          [[ "$CHANNEL" == "stable" || "$CHANNEL" == "lite" ]] || exit 1
+          [[ "$EXPECTED_SHA" =~ ^[0-9a-f]{64}$ ]] || { echo "::error::Invalid sha256 input"; exit 1; }
+          [[ "$VERSION_CODE" =~ ^[0-9]+$ ]] || { echo "::error::Invalid versionCode"; exit 1; }
+          [[ "$VERSION_NAME" =~ ^[A-Za-z0-9._+-]+$ ]] || { echo "::error::Invalid versionName"; exit 1; }
+          [[ "$SOURCE_RUN_ID" =~ ^[0-9]+$ ]] || exit 1
+          python3 scripts/validate_manifest.py
+          TAG="android-$CHANNEL-vc$VERSION_CODE"
+          if gh release view "$TAG" --repo "$PUBLIC_REPO" >/dev/null 2>&1; then
+            echo "::error::Release already exists; refusing to overwrite."
+            exit 1
+          fi
+      - name: Download exact approved artifact from PRIVATE CI
+        shell: bash
+        run: |
+          set -euo pipefail
+          result=$(GH_TOKEN="$SOURCE_READ_TOKEN" gh run view "$SOURCE_RUN_ID" --repo "$SOURCE_REPO" --json conclusion --jq '.conclusion')
+          [[ "$result" == "success" ]] || { echo "::error::Source run is not successful"; exit 1; }
+          mkdir -p private-artifact dist
+          GH_TOKEN="$SOURCE_READ_TOKEN" gh run download "$SOURCE_RUN_ID" --repo "$SOURCE_REPO" --name "$SOURCE_ARTIFACT" --dir private-artifact
+          count=$(find private-artifact -type f -name '*.apk' | wc -l)
+          [[ "$count" -eq 1 ]] || { echo "::error::Expected exactly one APK"; exit 1; }
+          found=$(find private-artifact -type f -name '*.apk' -print -quit)
+          cp "$found" "dist/AURA-Glass-TV-$CHANNEL-vc$VERSION_CODE.apk"
+          echo "$EXPECTED_SHA  dist/AURA-Glass-TV-$CHANNEL-vc$VERSION_CODE.apk" | sha256sum -c -
+      - name: Independently verify APK package, version and ORIGINAL cert
+        shell: bash
+        run: |
+          set -euo pipefail
+          APK="dist/AURA-Glass-TV-$CHANNEL-vc$VERSION_CODE.apk"
+          aapt=$(find "$ANDROID_HOME/build-tools" -maxdepth 2 -name aapt | sort -V | tail -1)
+          signer=$(find "$ANDROID_HOME/build-tools" -maxdepth 2 -name apksigner | sort -V | tail -1)
+          [[ -x "$aapt" && -x "$signer" ]] || { echo "::error::Android build-tools unavailable"; exit 1; }
+          badge=$("$aapt" dump badging "$APK" | grep '^package:' | head -1)
+          [[ "$badge" == *"name='com.auratv.player.engine3'"* ]] || { echo "::error::Package mismatch"; exit 1; }
+          [[ "$badge" == *"versionCode='$VERSION_CODE'"* ]] || { echo "::error::VersionCode mismatch"; exit 1; }
+          [[ "$badge" == *"versionName='$VERSION_NAME'"* ]] || { echo "::error::VersionName mismatch"; exit 1; }
+          "$signer" verify --verbose --print-certs "$APK" > apk-verification.txt
+          cert=$(sed -n 's/^Signer #1 certificate SHA-256 digest: //p' apk-verification.txt | head -1 | tr '[:upper:]' '[:lower:]')
+          [[ "$cert" == "$CERT_SHA256" ]] || { echo "::error::Original signing certificate mismatch"; exit 1; }
+      - name: Publish verified APK as NEW immutable-version Release
+        shell: bash
+        run: |
+          set -euo pipefail
+          TAG="android-$CHANNEL-vc$VERSION_CODE"
+          APK="dist/AURA-Glass-TV-$CHANNEL-vc$VERSION_CODE.apk"
+          gh release create "$TAG" "$APK" --repo "$PUBLIC_REPO" --target main --title "AURA Glass TV $CHANNEL vc$VERSION_CODE" --notes "$NOTES" --latest=false
+      - name: Activate feed ONLY after Release exists
+        shell: bash
+        run: |
+          set -euo pipefail
+          APK="dist/AURA-Glass-TV-$CHANNEL-vc$VERSION_CODE.apk"
+          BYTES=$(stat -c %s "$APK")
+          python3 scripts/publish_manifest.py --channel "$CHANNEL" --version-code "$VERSION_CODE" --version-name "$VERSION_NAME" --sha256 "$EXPECTED_SHA" --size "$BYTES" --notes "$NOTES"
+          python3 scripts/validate_manifest.py
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "updates/android/$CHANNEL.json"
+          git commit -m "release(android/$CHANNEL): activate versionCode $VERSION_CODE"
+          git push origin HEAD:main
