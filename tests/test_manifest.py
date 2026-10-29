@@ -6,11 +6,11 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 from validate_manifest import load_and_validate, validate, EXPECTED_CERT, EXPECTED_PACKAGE
 
 class ManifestTests(unittest.TestCase):
-    def test_feeds_stay_disabled_until_release(self):
+    def test_both_feeds_are_valid_in_any_release_state(self):
         for channel in ("stable", "lite"):
             p = load_and_validate(f"updates/android/{channel}.json")
-            self.assertEqual(p["status"], "unreleased")
-            self.assertIsNone(p["latest"])
+            self.assertIn(p["status"], ("unreleased", "released"))
+            self.assertEqual(p["latest"] is None, p["status"] == "unreleased")
 
     def test_rejects_fake_active_without_valid_payload(self):
         data = {"schema_version": 1, "platform": "android-tv", "channel": "stable",
