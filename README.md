@@ -4,16 +4,16 @@ Este repositório **público e separado** contém a infraestrutura de atualizaç
 
 ## Situação
 
-**Ambiente preparado, distribuição ainda desativada.** Até haver um APK aprovado e uma autorização de publicação, os dois canais usam `status: "unreleased"` e `latest: null`; **nenhum APK Premium ou Lite foi publicado aqui**.
+**Premium vc29 publicada para homologação autorizada pelo proprietário.** O canal estável oferece `0.9.7-aura-premium`, versionCode 29, com o certificado engine3 original. [Release e APK](https://github.com/eusam66/AURA-Update/releases/tag/android-stable-vc29). O canal Lite permanece desativado (`unreleased`, `latest: null`).
 
 | Canal | Feed HTTPS público | Estado |
 |---|---|---|
-| Glass TV (visual Premium / canal estável) | [stable.json](https://raw.githubusercontent.com/eusam66/AURA-Update/main/updates/android/stable.json) | Inativo |
+| Glass TV (visual Premium / canal estável) | [stable.json](https://raw.githubusercontent.com/eusam66/AURA-Update/main/updates/android/stable.json) | Ativo — vc29 |
 | Glass Lite TV | [lite.json](https://raw.githubusercontent.com/eusam66/AURA-Update/main/updates/android/lite.json) | Inativo |
 
 > **Premium aqui identifica a edição visual**, não significa que o licenciamento comercial Free/Premium já foi implementado. As edições compartilham o mesmo pacote Android, portanto não são aplicativos instaláveis lado a lado.
 
-## Preparado para a próxima versão
+## Estrutura de distribuição
 
 - `updates/android/`: manifesto da última versão aprovada de cada canal.
 - `scripts/validate_manifest.py`: verificador do formato e da política de URLs.
@@ -30,6 +30,6 @@ A publicação requer uma autorização específica e um segredo de leitura mín
 
 Documentação do [protocolo do atualizador](docs/UPDATE_PROTOCOL.md) e [instalação manual](docs/INSTALL_ANDROID.md).
 
-O aplicativo atual ainda não implementou o AURA Update. A instalação do APK continuará usando o instalador nativo do Android, sempre com permissão/consentimento do usuário.
+Na Premium vc28, acesse **Configurações → Atualizações → Verificar atualizações** para encontrar a vc29. O cliente verifica tamanho, SHA-256, pacote, versão e assinatura antes de abrir o instalador nativo do Android, sempre com permissão/consentimento do usuário. Atualize sobre a instalação existente, sem desinstalar nem limpar dados. O fluxo físico na TV ainda depende da homologação do proprietário.
 
 **Sem serviços pagos ou migração do código-fonte para um repositório público.**
