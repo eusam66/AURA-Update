@@ -71,6 +71,7 @@ jobs:
           [[ "$VERSION_NAME" =~ ^[A-Za-z0-9._+-]+$ ]] || { echo "::error::Invalid versionName"; exit 1; }
           [[ "$SOURCE_RUN_ID" =~ ^[0-9]+$ ]] || exit 1
           python3 scripts/validate_manifest.py
+          python3 -m unittest discover -s tests -v
           TAG="android-$CHANNEL-vc$VERSION_CODE"
           if gh release view "$TAG" --repo "$PUBLIC_REPO" >/dev/null 2>&1; then
             echo "::error::Release already exists; refusing to overwrite."
@@ -104,9 +105,10 @@ jobs:
           "$aapt" dump badging "$APK" > apk-badging.txt
           "$aapt" dump xmltree "$APK" AndroidManifest.xml > apk-manifest.txt
           python3 scripts/verify_public_apk.py apk-badging.txt apk-manifest.txt
-          "$signer" verify --verbose --print-certs "$APK" > apk-verification.txt
-          cert=$(sed -n 's/^Signer #1 certificate SHA-256 digest: //p' apk-verification.txt | head -1 | tr '[:upper:]' '[:lower:]')
-          [[ "$cert" == "$CERT_SHA256" ]] || { echo "::error::Original signing certificate mismatch"; exit 1; }
+          # SDK37 changed textual signer labels. Hash standard PEM DER instead;
+          # native signature verification and the exact ORIGINAL certificate pin remain mandatory.
+          "$signer" verify --verbose --print-certs --print-certs-pem "$APK" > apk-verification.txt
+          python3 scripts/verify_public_apk.py apk-badging.txt apk-manifest.txt apk-verification.txt
       - name: Publish verified APK as NEW immutable-version Release
         shell: bash
         run: |

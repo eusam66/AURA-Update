@@ -18,3 +18,42 @@ class ApkGateTests(unittest.TestCase):
         for text in ["application-debuggable\nsdkVersion:'28'", "sdkVersion:'27'", '']:
             with self.subTest(text=text), self.assertRaises(ValueError):
                 verify(text, '')
+
+class SigningCertificateGateTests(unittest.TestCase):
+    def fixture(self, label='Signer #1', data=b'synthetic certificate parser fixture', signers=1):
+        import base64
+        return (f'Number of signers: {signers}\n{label} certificate PEM:\n'
+                '-----BEGIN CERTIFICATE-----\n' + base64.b64encode(data).decode() +
+                '\n-----END CERTIFICATE-----\n')
+
+    def test_sdk35_and_sdk37_labels_do_not_change_certificate_digest(self):
+        import hashlib
+        from verify_public_apk import certificate_sha256
+        wanted = hashlib.sha256(b'synthetic certificate parser fixture').hexdigest()
+        for label in ['Signer #1', 'V2 Signer:', 'V3 Signer:']:
+            self.assertEqual(wanted, certificate_sha256(self.fixture(label), expected=wanted))
+
+    def test_default_pin_rejects_other_certificate_and_tampering(self):
+        import hashlib
+        from verify_public_apk import certificate_sha256
+        with self.assertRaises(ValueError):
+            certificate_sha256(self.fixture())
+        wanted = hashlib.sha256(b'synthetic certificate parser fixture').hexdigest()
+        with self.assertRaises(ValueError):
+            certificate_sha256(self.fixture(data=b'tampered'), expected=wanted)
+
+    def test_missing_multiple_or_truncated_signers_are_rejected(self):
+        import hashlib
+        from verify_public_apk import certificate_sha256
+        wanted = hashlib.sha256(b'synthetic certificate parser fixture').hexdigest()
+        for text in ['', self.fixture(signers=2), self.fixture() + self.fixture(),
+                     self.fixture().replace('-----END CERTIFICATE-----', '')]:
+            with self.subTest(text=text), self.assertRaises(ValueError):
+                certificate_sha256(text, expected=wanted)
+
+    def test_invalid_base64_and_empty_certificate_are_rejected(self):
+        from verify_public_apk import certificate_sha256
+        for text in ['Number of signers: 1\n-----BEGIN CERTIFICATE-----\n!\n-----END CERTIFICATE-----',
+                     'Number of signers: 1\n-----BEGIN CERTIFICATE-----\n-----END CERTIFICATE-----']:
+            with self.subTest(text=text), self.assertRaises(ValueError):
+                certificate_sha256(text)
