@@ -2,6 +2,17 @@
   "schema_version": 1,
   "platform": "android-tv",
   "channel": "stable",
-  "status": "unreleased",
-  "latest": null
+  "status": "released",
+  "latest": {
+    "version_code": 29,
+    "version_name": "0.9.7-aura-premium",
+    "package_name": "com.auratv.player.engine3",
+    "min_sdk": 28,
+    "apk_url": "https://github.com/eusam66/AURA-Update/releases/download/android-stable-vc29/AURA-Glass-TV-stable-vc29.apk",
+    "apk_sha256": "addb6dd2c44aaf539b119c3c65efd9dd31116ba3c2d8c525f6753acdd2ceb4d6",
+    "apk_size_bytes": 35054849,
+    "signing_cert_sha256": "f5e7ba845b611c41d3b8354a04c461609b47b9eacfa59f25b16bafcfb144e3b9",
+    "notes": "Premium vc29: trailers YouTube com identificação do aplicativo e alternativa externa; foco dourado nas opções de atualização; áudio original da abertura a 50%; identidade AURA Glass TV; sinopse individual de episódios; próximo episódio automático nos 10 segundos finais; confirmação antes de sair de filmes e séries. Atualize por cima da vc28, sem desinstalar ou limpar dados. Candidata para homologação na TV.",
+    "published_at": "2026-10-30T19:34:52Z"
+  }
 }
