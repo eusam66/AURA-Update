@@ -1,0 +1,66 @@
+name: Pause AURA public APK downloads (one time)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/hold-public-downloads-once.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  draft-previous-public-apk-releases:
+    if: github.event.head_commit.message == 'ops: pause public Android APK release assets for prelaunch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Check out distribution repo
+        uses: actions/checkout@v4
+      - name: Hide existing public Android APK releases without deleting them
+        shell: bash
+        run: |
+          set -euo pipefail
+          repo="$GITHUB_REPOSITORY"
+          mapfile -t releases < <(
+            gh api --paginate "repos/$repo/releases?per_page=100" \
+              --jq '.[] | select(.draft == false) | select(.tag_name | test("^android-(stable|lite)-vc[0-9]+$")) | .tag_name'
+          )
+          echo "Published Android releases to suspend: ${#releases[@]}"
+          for tag in "${releases[@]}"; do
+            echo "Changing $tag to draft"
+            gh release edit "$tag" --draft --repo "$repo"
+          done
+          remaining="$(gh api --paginate "repos/$repo/releases?per_page=100" \
+            --jq '.[] | select(.draft == false) | select(.tag_name | test("^android-(stable|lite)-vc[0-9]+$")) | .tag_name')"
+          if [[ -n "$remaining" ]]; then
+            echo "::error::Some Android releases are still public: $remaining"
+            exit 1
+          fi
+          {
+            echo "# AURA Glass TV — distribuição pública temporariamente pausada"
+            echo
+            echo "Os APKs Android previamente lançados foram mantidos no GitHub como **Releases em rascunho**, sem download público de seus assets."
+            echo
+            echo "A pausa foi solicitada pelo proprietário para exibir **Disponível em breve**."
+            echo
+            echo "Releases ocultadas: ${#releases[@]}"
+            for tag in "${releases[@]}"; do echo "- `$tag`"; done
+            echo
+            echo "O feed `stable.json` foi desativado separadamente. A pausa **não desinstala** os aplicativos já presentes nas TVs."
+            echo
+            echo "Para reabrir: decisão explícita do proprietário, verificar APKs/identidade, mudar as Releases aprovadas de draft para publicadas e reativar o feed e botões públicos em ordem coordenada."
+            echo
+            echo "Registro criado em: $(date -u +'%Y-%m-%d %H:%M UTC')"
+          } > docs/PUBLIC_RELEASE_HOLD_STATUS.md
+      - name: Record auditable result
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PUBLIC_RELEASE_HOLD_STATUS.md
+          git commit -m "docs: confirm paused public Android Releases" || exit 0
+          git push origin HEAD:main
