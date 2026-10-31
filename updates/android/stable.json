@@ -4,15 +4,15 @@
   "channel": "stable",
   "status": "released",
   "latest": {
-    "version_code": 30,
-    "version_name": "0.9.8-aura-premium",
+    "version_code": 31,
+    "version_name": "0.9.9-aura-premium",
     "package_name": "com.auratv.player.engine3",
     "min_sdk": 28,
-    "apk_url": "https://github.com/eusam66/AURA-Update/releases/download/android-stable-vc30/AURA-Glass-TV-stable-vc30.apk",
-    "apk_sha256": "7e50be2ec20fa30881f167bcfa62678a59084831e8bd155e3109905f1f13a13f",
-    "apk_size_bytes": 35104001,
+    "apk_url": "https://github.com/eusam66/AURA-Update/releases/download/android-stable-vc31/AURA-Glass-TV-stable-vc31.apk",
+    "apk_sha256": "d398220220c9338d33fccae82a28692e9c8f946df87627df38c4ee5e5ec00883",
+    "apk_size_bytes": 35120381,
     "signing_cert_sha256": "f5e7ba845b611c41d3b8354a04c461609b47b9eacfa59f25b16bafcfb144e3b9",
-    "notes": "Premium vc30 — sinopse fixa no rodapé; próximo episódio compacto aos 90s e expandido aos 20s; Voltar em duas etapas; restauração da ficha após YouTube; foco champanhe suavemente pulsante.",
-    "published_at": "2026-10-31T00:44:44Z"
+    "notes": "Premium vc31 — teclado da Pesquisa preservado durante a digitação; foco estável no AURA Update; ações cinematográficas em uma única fileira; ficha de Séries rolando junto aos episódios, com temporadas independentes e retorno ao mesmo ponto.",
+    "published_at": "2026-10-31T05:14:04Z"
   }
 }
