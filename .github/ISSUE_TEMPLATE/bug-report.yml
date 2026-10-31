@@ -1,0 +1,74 @@
+name: "🐛 Relatar erro — Beta AURA Glass TV"
+description: "Envie um problema encontrado no AURA Glass TV para ajudar a melhorar o beta gratuito."
+title: "[Beta][Bug] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Obrigado por testar o **AURA Glass TV**! Informe o problema em linguagem simples.
+
+        **Privacidade:** este formulário é PÚBLICO. Nunca envie playlists M3U, URLs Xtream completas, usuário, senha, tokens, códigos de ativação, arquivos pessoais ou dados de outras pessoas. Se possível, reproduza o erro com conteúdo de teste não protegido.
+  - type: input
+    id: version
+    attributes:
+      label: Versão do AURA
+      description: "Veja em Configurações > Atualizações. Exemplo: 0.9.9-aura-premium (vc31)."
+      placeholder: "vc31"
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Aparelho e modelo
+      placeholder: "Ex.: Philips Android TV / Xiaomi Mi TV Stick Full HD"
+    validations:
+      required: true
+  - type: input
+    id: android
+    attributes:
+      label: Versão do Android / Google TV
+      placeholder: "Ex.: Android TV 11 / Android TV 9 / não sei"
+  - type: dropdown
+    id: area
+    attributes:
+      label: Onde aconteceu?
+      options:
+        - Início / menus
+        - Busca
+        - TV ao Vivo / EPG
+        - Filmes
+        - Séries / episódios
+        - Player / legendas / áudio
+        - AURA Update / instalação
+        - Perfis / listas / AURA Connect
+        - Outra área
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Como reproduzir o erro?
+      description: "Explique os passos com o controle remoto, sem compartilhar fontes privadas."
+      placeholder: "1. Abri... 2. Apertei... 3. Aconteceu..."
+    validations:
+      required: true
+  - type: textarea
+    id: observed
+    attributes:
+      label: O que aconteceu? O que deveria acontecer?
+      description: "Descreva o problema e o comportamento esperado."
+    validations:
+      required: true
+  - type: textarea
+    id: media
+    attributes:
+      label: Imagens ou vídeo (opcional)
+      description: "Anexe apenas capturas próprias, sem dados de conta, credenciais, links privados ou conteúdos protegidos."
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Conferência
+      options:
+        - label: "Revisei a descrição e não compartilhei senha, token, playlist ou outros dados privados."
+          required: true
