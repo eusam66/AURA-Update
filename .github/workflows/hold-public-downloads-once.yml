@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   draft-previous-public-apk-releases:
-    if: github.event.head_commit.message == 'ops: pause public Android APK release assets for prelaunch'
+    if: github.event.head_commit.message == 'ops: confirm pause of AURA public Android Releases'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
@@ -47,9 +47,9 @@ jobs:
             echo "A pausa foi solicitada pelo proprietário para exibir **Disponível em breve**."
             echo
             echo "Releases ocultadas: ${#releases[@]}"
-            for tag in "${releases[@]}"; do echo "- `$tag`"; done
+            for tag in "${releases[@]}"; do printf -- '- `%s`\\n' "$tag"; done
             echo
-            echo "O feed `stable.json` foi desativado separadamente. A pausa **não desinstala** os aplicativos já presentes nas TVs."
+            echo 'O feed `stable.json` foi desativado separadamente. A pausa **não desinstala** os aplicativos já presentes nas TVs.'
             echo
             echo "Para reabrir: decisão explícita do proprietário, verificar APKs/identidade, mudar as Releases aprovadas de draft para publicadas e reativar o feed e botões públicos em ordem coordenada."
             echo
