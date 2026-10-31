@@ -70,6 +70,8 @@
     details {border-bottom:1px solid var(--line);padding:20px 2px}
     summary {font-weight:600;cursor:pointer;list-style-position:inside}
     details p {padding:0 20px;color:var(--muted);margin:14px 0 0}
+    .beta-notice {margin:23px 0 5px;padding:13px 16px;background:#201b16;border:1px solid #98714570;border-radius:12px;color:#e9d1ad;font-size:14px}
+    .beta-notice strong{color:#f9dfb7}
     .hash {font:12px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace;overflow-wrap:anywhere;color:#c3b3a3}
     footer {border-top:1px solid var(--line);padding:35px 0 55px;color:#94887d;font-size:13px}
     footer .wrap {display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:center}
@@ -82,7 +84,7 @@
 <header><div class="wrap top">
   <a class="brand" href="#inicio" aria-label="AURA Glass TV, início">AURA <small>GLASS TV</small></a>
   <nav aria-label="Navegação">
-    <a href="#recursos">Recursos</a><a href="#capturas">Interface</a><a href="#instalar">Instalação</a><a href="#duvidas">Dúvidas</a>
+    <a href="#recursos">Recursos</a><a href="#capturas">Interface</a><a href="#instalar">Instalação</a><a href="#feedback">Feedback</a><a href="#duvidas">Dúvidas</a>
     <a href="https://github.com/eusam66/AURA-Update/releases">Releases</a>
   </nav>
 </div></header>
@@ -92,6 +94,7 @@
       <div class="eyebrow">Uma nova maneira de aproveitar sua Android TV</div>
       <h1>Sua TV.<br><em>Seu conteúdo.</em><br>Sua experiência.</h1>
       <p class="lead">Conheça o <strong>AURA Glass TV</strong>: um player para Android TV e Google TV que reúne suas listas compatíveis, filmes, séries e TV ao vivo em uma interface elegante, organizada e feita para o controle remoto.</p>
+      <div class="beta-notice"><strong>🧪 BETA PÚBLICO GRATUITO</strong><div>Teste em seu dispositivo, participe do desenvolvimento e envie sugestões. Uma edição comercial poderá ser lançada futuramente, com condições divulgadas antes da transição.</div></div>
       <div class="chips"><span class="chip">Android TV 9+</span><span class="chip">Google TV</span><span class="chip">M3U / Xtream Codes</span><span class="chip">Navegação por controle</span></div>
       <div class="actions">
         <a id="download-hero" class="btn btn-main" href="https://github.com/eusam66/AURA-Update/releases/download/android-stable-vc31/AURA-Glass-TV-stable-vc31.apk">↓ Baixar APK oficial</a>
@@ -149,8 +152,19 @@
     <p class="disclaimer">A instalação requer confirmação no Android. O APK é distribuído pelo repositório público oficial, com hash SHA-256 e certificado de assinatura verificados no processo de publicação.</p>
     <p class="hash"><strong>SHA-256 da versão oferecida:</strong> <span id="checksum">d398220220c9338d33fccae82a28692e9c8f946df87627df38c4ee5e5ec00883</span></p>
   </div></section>
+  <section id="feedback"><div class="wrap">
+    <div class="eyebrow">Sua experiência importa</div>
+    <h2>Ajude a melhorar o AURA</h2>
+    <p class="section-intro">Estamos em <strong>beta público gratuito</strong>. Queremos saber como o AURA funciona em diferentes Android TVs e Google TVs. Encontrou algum problema ou tem uma ideia? Seu feedback ajuda a priorizar as próximas correções.</p>
+    <div class="actions">
+      <a class="btn btn-main" href="https://github.com/eusam66/AURA-Update/issues/new?template=bug-report.yml">🐛 Relatar um erro</a>
+      <a class="btn btn-second" href="https://github.com/eusam66/AURA-Update/issues/new?template=feature-request.yml">✨ Sugerir melhoria</a>
+    </div>
+    <p class="disclaimer">Não compartilhe contas, senhas, dados pessoais, links de playlists ou credenciais privadas nos formulários públicos. O uso gratuito é relativo à fase beta atual; condições futuras de licenciamento serão informadas antecipadamente.</p>
+  </div></section>
   <section id="duvidas"><div class="wrap faq">
     <div class="eyebrow">Informações importantes</div><h2>Dúvidas frequentes</h2>
+    <details><summary>O AURA é gratuito?</summary><p>Sim. O aplicativo está em beta público gratuito para testes e sugestões de melhoria. Não existe cobrança ativa nesta versão. Planejamos uma edição paga futuramente, mas não há data de lançamento ou regra comercial em vigor; as condições serão comunicadas com antecedência.</p></details>
     <details><summary>O AURA inclui canais, listas, filmes ou séries?</summary><p>Não. O AURA é um aplicativo reprodutor e organizador de conteúdo. Você deve adicionar suas próprias fontes compatíveis e legalmente autorizadas. Não fornecemos playlists, contas, credenciais ou acesso a canais.</p></details>
     <details><summary>Quais dispositivos são compatíveis?</summary><p>O APK é destinado a Android TV / Google TV com Android 9 (API 28) ou superior. O desempenho varia conforme memória, processador, rede e formato da mídia. Não é uma versão para Roku, Tizen ou webOS.</p></details>
     <details><summary>Como recebo atualizações?</summary><p>No aplicativo, acesse Configurações → Atualizações → Verificar atualizações. Quando houver nova versão, siga as instruções e confirme a instalação pelo sistema Android.</p></details>
