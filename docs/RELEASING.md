@@ -1,30 +1,50 @@
-# Publicação controlada de uma atualização
+# Publicação verificada do AURA Glass TV (Android TV)
 
-**Estado inicial:** sem Releases Premium/Lite e sem feed ativo. Preparar infraestrutura NÃO equivale a autorizar distribuição de um APK.
+## Estado atual
 
-## Pré-requisitos antes da primeira publicação
-1. Esperar o Codex concluir o APK assinado e a homologação da versão candidata.
-2. Obter autorização do proprietário para tornar **aquele APK específico** público.
-3. Habilitar GitHub Actions neste repositório de distribuição.
-4. Criar o secret Actions `AURA_SOURCE_READ_TOKEN`: token mínimo de leitura do projeto **privado** `eusam66/AURA-TV-Player` com Actions:read (e acesso ao repo), sem permissões de escrita. Não expor no Git, logs ou apps.
-5. Garantir Actions configurado para permitir `GITHUB_TOKEN` com permissão de `contents: write` para o workflow manual (o YAML declara essa permissão).
-6. Conferir que a versão é *mais nova* do que o manifesto ativo no canal escolhido; mesmo pacote e certificado.
+**Premium vc31 publicada** e ativa no canal `stable` (31/10/2026). A edição Lite continua com feed inativo até lançamento aprovado. O repositório público `eusam66/AURA-Update` fornece somente material de distribuição, sem código-fonte privado do aplicativo.
 
-## Workflow manual
+## Autorização permanente
 
-Acessar **Actions → Publish verified AURA Android APK (manual) → Run workflow** e informar:
-- `channel`: `stable` (Premium visual) ou `lite`;
-- `source_run_id`: ID da execução CI concluída com sucesso no repositório privado;
-- `source_artifact_name`: nome exato do artefato contendo o APK;
-- `expected_sha256`: SHA-256 do APK conferido independentemente;
-- `version_code` e `version_name`: valores do APK;
-- `release_notes`: novidades em linguagem pública, sem dados privados.
+O proprietário autorizou **publicar futuras correções/versões Android após a conclusão do desenvolvimento e aprovação integral dos gates técnicos e de segurança**, sem pedir aprovação individual para cada versão. Esta autorização não permite publicação de build incompleto nem instalação silenciosa nas TVs; mudanças de assinatura/pacote, custos ou migrações destrutivas exigem decisão separada. Política registrada também na Issue #35 do repositório privado.
 
-O workflow baixa do CI privado (sem recompilar), confere **SHA-256, pacote, versionCode, versionName e certificado** via `apksigner`/`aapt`, cria **uma nova Release pública** sem sobrescrever existente e **só depois ativa o canal correspondente**. Hash incorreto ou ausência de chave de leitura bloqueia a publicação.
+## Workflow oficial e obrigatório
 
-**Importante:** a Release e a alteração do manifesto são duas ações separadas; falha parcial pode deixar Release pública sem atualizar o feed. Não reutilizar/forçar a mesma tag sem revisão: diagnosticar e resolver de forma controlada. A Release não contém código-fonte privado (GitHub anexará automaticamente os arquivos-fonte **deste repositório público de distribuição**, que tem apenas documentação/workflows).
+Repositório público: `eusam66/AURA-Update`.
 
-Não habilitar mais de um canal sem identificar a edição correta. O canal Lite não é um método automático de downgrade.
+Acesse **Actions → Publish verified AURA Android APK (manual) → Run workflow** e informe:
 
-## Para a equipe de desenvolvimento
-A implementação do app Android deverá consumir `updates/android/<canal>.json` e usar instalação assistida pelo sistema, nunca silenciosa. O projeto privado permanece inalterado por este repositório, e Cloudflare não é necessário para servir os APKs.
+- `channel`: `stable` (Premium) ou `lite`, conforme a edição exata;
+- `source_run_id`: execução CI privada com resultado `success`;
+- `source_artifact_name`: nome exato do artefato APK da execução;
+- `expected_sha256`: SHA-256 conferido independentemente no arquivo APK;
+- `version_code` e `version_name`: metadados do APK;
+- `release_notes`: resumo público sem senhas, tokens, URLs de listas ou dados pessoais.
+
+O workflow exige o segredo mínimo `AURA_SOURCE_READ_TOKEN` com acesso de leitura à Actions privada, via GitHub Secrets. Não expor o valor em commits, issues, documentação, páginas ou logs.
+
+## Gates técnicos obrigatórios
+
+1. Testes Android/back-end/regressões relevantes concluídos.
+2. `versionCode` superior ao canal ativo e `versionName` coerente.
+3. Package original `com.auratv.player.engine3`, minSdk compatível e **certificado original**.
+4. APK real íntegro, SHA-256 idêntico ao esperado, `debuggable=false` e `testOnly=false`.
+5. Nenhum segredo, lista privada, chave de assinatura, credencial ou dados de usuário publicados.
+6. Uma **nova** Release versionada é criada primeiro; só depois `updates/android/stable.json` ou `lite.json` é atualizado.
+7. Em erro parcial, bloquear ativação do feed e investigar; não substituir Release antiga nem forçar downgrade.
+
+O workflow **não recompila nem reassina** o APK; usa o artefato privado já validado.
+
+## Atualização na televisão
+
+O usuário final consulta o AURA Update no próprio aplicativo e autoriza o download e a instalação nativa do Android. Atualizações preservam a instalação e dados. Não exigir PC ou ADB para o fluxo normal.
+
+## Página pública de divulgação
+
+- Repositório e README: https://github.com/eusam66/AURA-Update
+- Página estática: `docs/index.html`. Ativar GitHub Pages a partir de `main /docs` (veja `docs/PUBLISH_SITE.md`).
+- A página estática consulta o feed público `updates/android/stable.json` no navegador para exibir versão, hash, notas e link do APK sempre atualizados; falhas de rede mantêm o link da vc31 como fallback.
+- O README menciona a vc31 e deverá ser atualizado durante próximas releases (ou utilizar o link permanente para Releases).
+- Galeria: imagens demonstrativas da interface provenientes dos testes sintéticos, **não dados/capturas de usuários**.
+
+**Não adicionar à página pública um pacote, preço, recursos de licenciamento ou canais que ainda não estejam implementados e aprovados.**
