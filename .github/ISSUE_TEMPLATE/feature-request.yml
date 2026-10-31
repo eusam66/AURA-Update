@@ -1,0 +1,45 @@
+name: "✨ Sugerir melhoria — Beta AURA Glass TV"
+description: "Compartilhe uma ideia de interface, fluidez, acessibilidade ou experiência para o AURA."
+title: "[Beta][Ideia] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        O AURA Glass TV está em **beta público gratuito** para receber melhorias de pessoas que usam diferentes Android TVs.
+
+        **Privacidade:** não compartilhe dados pessoais, senhas, credenciais Xtream, URLs M3U privadas ou conteúdo protegido.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Qual parte do aplicativo?
+      options:
+        - Início / navegação
+        - Filmes
+        - Séries
+        - TV ao Vivo / EPG
+        - Reprodução / player
+        - Busca / filtros
+        - Perfis / segurança
+        - Atualizações
+        - Performance / compatibilidade
+        - Outra
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: Qual melhoria você gostaria de ver?
+      description: "Descreva sua sugestão de forma clara."
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Como essa melhoria ajudaria?
+      description: "Conte como você usa a TV e o problema que a ideia resolveria."
+  - type: input
+    id: device
+    attributes:
+      label: Dispositivo usado (opcional)
+      placeholder: "Ex.: Mi TV Stick Full HD 1 GB"
