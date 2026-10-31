@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#09090b">
+  <meta name="description" content="AURA Glass TV: uma experiência cinematográfica para Android TV e Google TV. TV ao vivo, filmes e séries de suas próprias listas, com navegação pelo controle remoto. Baixe o APK oficial pelo GitHub.">
+  <meta property="og:title" content="AURA Glass TV | Sua TV. Seu conteúdo. Sua experiência.">
+  <meta property="og:description" content="Conheça o AURA Glass TV e baixe a versão oficial para Android TV e Google TV.">
+  <meta property="og:type" content="website">
+  <title>AURA Glass TV — Download oficial para Android TV</title>
+  <style>
+    :root { --ink:#09090b; --panel:#161518; --gold:#d6af78; --bright:#f6dfb4; --text:#f3efeb; --muted:#b4aaa2; --line:rgba(231,194,136,.18); }
+    * { box-sizing:border-box; }
+    html {scroll-behavior:smooth}
+    body {margin:0; background:var(--ink);color:var(--text);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;}
+    body:before {content:"";position:absolute;inset:0 0 auto 0;height:850px;pointer-events:none;background:radial-gradient(ellipse 65% 55% at 75% 12%,rgba(172,118,49,.17),transparent 75%),radial-gradient(ellipse 45% 40% at 6% 37%,rgba(90,64,36,.14),transparent 85%);}
+    a {color:var(--bright);text-decoration:none}
+    a:hover {text-decoration:underline}
+    a:focus-visible,button:focus-visible {outline:2px solid var(--gold);outline-offset:5px}
+    .wrap {max-width:1160px;margin:auto;padding:0 24px;position:relative}
+    header {border-bottom:1px solid var(--line);background:rgba(8,8,9,.88);}
+    .top {display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:80px}
+    .brand {font-size:23px;letter-spacing:.23em;font-weight:700;color:var(--bright);white-space:nowrap}
+    .brand small {font-size:10px;letter-spacing:.17em;display:block;font-weight:500;color:#b8a48d;line-height:1}
+    nav {display:flex;align-items:center;flex-wrap:wrap;gap:22px;font-size:13px}
+    nav a {color:#d7cdc2}
+    .hero {padding:102px 0 91px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);gap:65px;align-items:center}
+    .eyebrow {font-size:12px;text-transform:uppercase;letter-spacing:.22em;color:var(--gold);font-weight:700}
+    h1 {font-family:Georgia,"Times New Roman",serif;font-weight:500;font-size:clamp(42px,5.7vw,77px);line-height:1.08;letter-spacing:-.045em;margin:18px 0 25px}
+    .hero h1 em {color:var(--bright);font-style:normal}
+    .lead {font-size:18px;max-width:610px;color:#c9bfb6;line-height:1.77}
+    .chips {display:flex;flex-wrap:wrap;gap:9px;margin:27px 0 31px}
+    .chip {font-size:12px;letter-spacing:.03em;padding:6px 12px;background:#1b1918;border:1px solid var(--line);border-radius:40px;color:#d9cab9}
+    .actions {display:flex;flex-wrap:wrap;gap:13px;align-items:center}
+    .btn {display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 24px;border-radius:11px;font-weight:700;transition:transform .2s ease,background .2s ease}
+    .btn:hover {text-decoration:none;transform:translateY(-2px)}
+    .btn-main {color:#1b140e;background:linear-gradient(135deg,#f0d3a4,#c6955a);box-shadow:0 12px 40px #bb874329}
+    .btn-second {border:1px solid #5e4b34;color:#f1e4d2;background:#161310}
+    .subline {margin-top:15px;font-size:13px;color:var(--muted)}
+    .aura-card {position:relative;padding:30px;min-height:390px;border-radius:30px;border:1px solid #71593f;background:linear-gradient(138deg,#292017 0%,#111115 52%,#1c1a1e 100%);box-shadow:0 36px 100px #0009}
+    .aura-card:before {content:"";position:absolute;inset:-1px;border-radius:inherit;background:linear-gradient(115deg,#ffdeb050,transparent 42%);pointer-events:none}
+    .card-brand {font-size:clamp(58px,8vw,116px);line-height:1.1;font-family:Georgia,serif;letter-spacing:.15em;text-align:center;padding-top:70px;background:linear-gradient(160deg,#fff1c9,#ba8142 75%);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .card-sub {text-align:center;font-size:12px;letter-spacing:.52em;color:#ba9467}
+    .fake-tv {position:absolute;bottom:27px;left:29px;right:29px;display:flex;justify-content:space-between;align-items:center;border-radius:12px;background:#111114d6;border:1px solid #ffffff17;padding:13px 14px;font-size:12px;color:#dbd3cc}
+    .focus {padding:7px 11px;border-radius:8px;color:#fee8bd;border:1px solid var(--gold);box-shadow:0 0 0 3px #e6b16c24}
+    section {padding:78px 0;border-top:1px solid var(--line)}
+    h2 {font:500 clamp(30px,3.3vw,46px)/1.2 Georgia,serif;letter-spacing:-.02em;margin:12px 0 17px}
+    .section-intro {max-width:760px;color:var(--muted);margin-bottom:30px}
+    .features {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+    .feature {padding:26px;min-height:182px;border-radius:16px;border:1px solid var(--line);background:linear-gradient(145deg,#1d1b1a,#111113)}
+    .feature .symbol {font-size:24px;color:var(--gold)}
+    .feature h3 {font-size:17px;margin:15px 0 5px}
+    .feature p {font-size:14px;color:var(--muted);line-height:1.7;margin:0}
+    .gallery {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+    figure {margin:0;background:#151517;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+    figure img {display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;background:#060607}
+    figcaption {padding:18px 20px;font-size:14px;color:#d6cabe}
+    .disclaimer {font-size:12px;color:#a99a89;margin-top:16px}
+    .steps {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;counter-reset:step}
+    .step {counter-increment:step;padding:26px;background:#151417;border:1px solid var(--line);border-radius:15px}
+    .step:before {content:"0" counter(step);display:block;font:34px Georgia,serif;color:var(--gold);margin-bottom:12px}
+    .step strong {display:block;margin-bottom:8px}
+    .step p {font-size:14px;color:var(--muted);margin:0}
+    .download-panel {border:1px solid #98714574;background:linear-gradient(110deg,#211a15,#121214);padding:30px;border-radius:20px;display:flex;justify-content:space-between;align-items:center;gap:25px}
+    .download-panel h3 {font:500 25px Georgia,serif;margin:0}
+    .release-notes {color:#b7a99c;margin:11px 0 0;font-size:13px;max-width:650px}
+    .faq {max-width:840px}
+    details {border-bottom:1px solid var(--line);padding:20px 2px}
+    summary {font-weight:600;cursor:pointer;list-style-position:inside}
+    details p {padding:0 20px;color:var(--muted);margin:14px 0 0}
+    .hash {font:12px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace;overflow-wrap:anywhere;color:#c3b3a3}
+    footer {border-top:1px solid var(--line);padding:35px 0 55px;color:#94887d;font-size:13px}
+    footer .wrap {display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:center}
+    @media(max-width:850px){.hero{grid-template-columns:1fr;padding:62px 0;gap:35px}.aura-card{max-width:560px;width:100%;margin:auto}.features,.steps{grid-template-columns:repeat(2,minmax(0,1fr))}nav{gap:13px}}
+    @media(max-width:600px){.wrap{padding:0 18px}.top{align-items:flex-start;flex-direction:column;padding:18px 0;gap:11px}.hero{padding:50px 0 65px}.aura-card{min-height:300px}.card-brand{padding-top:38px}.features,.steps,.gallery{grid-template-columns:1fr}.download-panel{flex-direction:column;align-items:flex-start}.btn{width:100%}section{padding:55px 0}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
+  </style>
+</head>
+<body>
+<header><div class="wrap top">
+  <a class="brand" href="#inicio" aria-label="AURA Glass TV, início">AURA <small>GLASS TV</small></a>
+  <nav aria-label="Navegação">
+    <a href="#recursos">Recursos</a><a href="#capturas">Interface</a><a href="#instalar">Instalação</a><a href="#duvidas">Dúvidas</a>
+    <a href="https://github.com/eusam66/AURA-Update/releases">Releases</a>
+  </nav>
+</div></header>
+<main id="inicio">
+  <div class="wrap hero">
+    <div>
+      <div class="eyebrow">Uma nova maneira de aproveitar sua Android TV</div>
+      <h1>Sua TV.<br><em>Seu conteúdo.</em><br>Sua experiência.</h1>
+      <p class="lead">Conheça o <strong>AURA Glass TV</strong>: um player para Android TV e Google TV que reúne suas listas compatíveis, filmes, séries e TV ao vivo em uma interface elegante, organizada e feita para o controle remoto.</p>
+      <div class="chips"><span class="chip">Android TV 9+</span><span class="chip">Google TV</span><span class="chip">M3U / Xtream Codes</span><span class="chip">Navegação por controle</span></div>
+      <div class="actions">
+        <a id="download-hero" class="btn btn-main" href="https://github.com/eusam66/AURA-Update/releases/download/android-stable-vc31/AURA-Glass-TV-stable-vc31.apk">↓ Baixar APK oficial</a>
+        <a class="btn btn-second" href="#capturas">Explorar a interface</a>
+      </div>
+      <p class="subline"><span id="version-hero">Versão 0.9.9 • vc31</span> · Download pelo GitHub · Instalação assistida pelo Android</p>
+    </div>
+    <div class="aura-card" aria-label="Apresentação tipográfica do AURA Glass TV">
+      <div class="card-brand">AURA</div><div class="card-sub">G L A S S &nbsp; T V</div>
+      <div class="fake-tv"><span>Experiência de cinema na sua TV</span><span class="focus">▶ Assistir</span></div>
+    </div>
+  </div>
+  <section id="recursos"><div class="wrap">
+    <div class="eyebrow">Pensado para a sua sala</div>
+    <h2>O que faz o AURA especial</h2>
+    <p class="section-intro">Uma experiência de uso consistente, da primeira navegação ao próximo episódio — sem perder o que importa: seu conteúdo e seu conforto.</p>
+    <div class="features">
+      <article class="feature"><span class="symbol">◈</span><h3>Interface Glass Premium</h3><p>Grafite, detalhes dourados e destaque sutil no foco, projetados para navegar com o controle remoto.</p></article>
+      <article class="feature"><span class="symbol">▣</span><h3>Filmes e séries organizados</h3><p>Explore categorias, pôsteres, sinopses, elenco e detalhes disponíveis para cada título.</p></article>
+      <article class="feature"><span class="symbol">▶</span><h3>Continue assistindo</h3><p>Retome filmes e episódios de onde parou, com histórico e favoritos.</p></article>
+      <article class="feature"><span class="symbol">▤</span><h3>TV ao vivo e guia</h3><p>Visualização de canais e integração com guia de programação EPG, conforme sua fonte.</p></article>
+      <article class="feature"><span class="symbol">↪</span><h3>Próximo episódio inteligente</h3><p>Avance automaticamente pela série, com aviso e opção de continuar o episódio até o fim.</p></article>
+      <article class="feature"><span class="symbol">✦</span><h3>Atualizações pela TV</h3><p>Confira novas versões no próprio aplicativo e instale com autorização do Android.</p></article>
+    </div>
+  </div></section>
+  <section id="capturas"><div class="wrap">
+    <div class="eyebrow">Um olhar por dentro</div><h2>Conheça a interface</h2>
+    <p class="section-intro">Prévia dos controles do player e do sistema de próximo episódio, com o estilo grafite e champanhe do AURA.</p>
+    <div class="gallery">
+      <figure><img src="assets/player-interface.svg" loading="lazy" alt="Prévia técnica do player com controles de áudio, legendas, favoritos, proporção e sinopse no rodapé"><figcaption>Player com controles organizados e sinopse contextual.</figcaption></figure>
+      <figure><img src="assets/next-episode-interface.svg" loading="lazy" alt="Prévia técnica do aviso Próximo episódio com botões Assistir agora e Agora não"><figcaption>Próximo episódio com acesso rápido e decisão do usuário.</figcaption></figure>
+    </div>
+    <p class="disclaimer">Imagens de demonstração do layout, produzidas para testes de interface. Não representam canais ou filmes incluídos no aplicativo.</p>
+  </div></section>
+  <section id="instalar"><div class="wrap">
+    <div class="eyebrow">Comece em poucos passos</div><h2>Como instalar na sua TV</h2>
+    <p class="section-intro">O download é público pelo GitHub. O APK foi desenvolvido para Android TV e Google TV (Android 9 ou superior).</p>
+    <div class="steps">
+      <div class="step"><strong>Baixe o APK</strong><p>Use o botão oficial desta página ou a seção Releases do GitHub. Você pode baixar no celular ou computador e enviar para a TV.</p></div>
+      <div class="step"><strong>Instale na Android TV</strong><p>Transfira o APK pelo meio de sua preferência e abra-o no gerenciador de arquivos. Autorize a fonte externa se o Android solicitar.</p></div>
+      <div class="step"><strong>Conecte sua fonte</strong><p>Abra o AURA e adicione suas próprias listas M3U ou credenciais Xtream autorizadas. Explore o catálogo com o controle remoto.</p></div>
+    </div>
+    <p class="disclaimer"><strong>Já utiliza o AURA?</strong> Atualize por cima da instalação anterior. Não desinstale nem limpe os dados. Para futuras versões, use Configurações → Atualizações dentro do próprio aplicativo.</p>
+  </div></section>
+  <section id="download"><div class="wrap">
+    <div class="download-panel">
+      <div>
+        <div class="eyebrow">Distribuição oficial</div>
+        <h3>Pronto para conhecer o AURA?</h3>
+        <p id="release-notes" class="release-notes">Premium vc31: pesquisa aprimorada, controles de atualização estáveis, ações cinematográficas em uma linha e navegação refinada por episódios.</p>
+        <p class="subline" id="version-download">Versão 0.9.9-aura-premium · Android TV 9+</p>
+      </div>
+      <a id="download-bottom" href="https://github.com/eusam66/AURA-Update/releases/download/android-stable-vc31/AURA-Glass-TV-stable-vc31.apk" class="btn btn-main">↓ Baixar APK</a>
+    </div>
+    <p class="disclaimer">A instalação requer confirmação no Android. O APK é distribuído pelo repositório público oficial, com hash SHA-256 e certificado de assinatura verificados no processo de publicação.</p>
+    <p class="hash"><strong>SHA-256 da versão oferecida:</strong> <span id="checksum">d398220220c9338d33fccae82a28692e9c8f946df87627df38c4ee5e5ec00883</span></p>
+  </div></section>
+  <section id="duvidas"><div class="wrap faq">
+    <div class="eyebrow">Informações importantes</div><h2>Dúvidas frequentes</h2>
+    <details><summary>O AURA inclui canais, listas, filmes ou séries?</summary><p>Não. O AURA é um aplicativo reprodutor e organizador de conteúdo. Você deve adicionar suas próprias fontes compatíveis e legalmente autorizadas. Não fornecemos playlists, contas, credenciais ou acesso a canais.</p></details>
+    <details><summary>Quais dispositivos são compatíveis?</summary><p>O APK é destinado a Android TV / Google TV com Android 9 (API 28) ou superior. O desempenho varia conforme memória, processador, rede e formato da mídia. Não é uma versão para Roku, Tizen ou webOS.</p></details>
+    <details><summary>Como recebo atualizações?</summary><p>No aplicativo, acesse Configurações → Atualizações → Verificar atualizações. Quando houver nova versão, siga as instruções e confirme a instalação pelo sistema Android.</p></details>
+    <details><summary>Preciso desinstalar uma versão antiga?</summary><p>Não. Caso já utilize o mesmo AURA com assinatura original, instale a versão mais nova por cima. Desinstalar ou limpar dados pode excluir informações locais.</p></details>
+    <details><summary>Onde posso acompanhar novidades ou relatar problemas?</summary><p>Acesse a seção <a href="https://github.com/eusam66/AURA-Update/releases">Releases</a> para novas versões. Para feedback público de distribuição, utilize as <a href="https://github.com/eusam66/AURA-Update/issues">Issues</a>, sem compartilhar credenciais, URLs privadas ou dados pessoais.</p></details>
+  </div></section>
+</main>
+<footer><div class="wrap">
+  <span><strong style="color:#d6af78">AURA Glass TV</strong> · Distribuição oficial para Android TV</span>
+  <span><a href="https://github.com/eusam66/AURA-Update">GitHub</a> · <a href="https://github.com/eusam66/AURA-Update/releases">Releases</a> · <a href="https://github.com/eusam66/AURA-Update/blob/main/docs/INSTALL_ANDROID.md">Instalação</a></span>
+</div></footer>
+<script>
+(function () {
+  const feed = "https://raw.githubusercontent.com/eusam66/AURA-Update/main/updates/android/stable.json";
+  const prefix = "https://github.com/eusam66/AURA-Update/releases/download/";
+  fetch(feed, { cache: "no-store" }).then(function(res) {
+    if (!res.ok) throw new Error("manifest unavailable");
+    return res.json();
+  }).then(function(data) {
+    const item = data && data.status === "released" && data.latest;
+    if (!item || !Number.isSafeInteger(item.version_code) || item.version_code < 31 || typeof item.apk_url !== "string" || !item.apk_url.startsWith(prefix) || item.package_name !== "com.auratv.player.engine3" || !/^[a-f0-9]{64}$/.test(item.apk_sha256)) return;
+    document.getElementById("download-hero").href = item.apk_url;
+    document.getElementById("download-bottom").href = item.apk_url;
+    document.getElementById("version-hero").textContent = "Versão " + item.version_name + " • vc" + item.version_code;
+    document.getElementById("version-download").textContent = "Versão " + item.version_name + " • Android TV 9+";
+    document.getElementById("checksum").textContent = item.apk_sha256;
+    if (typeof item.notes === "string" && item.notes.length < 2000) document.getElementById("release-notes").textContent = item.notes;
+  }).catch(function () { /* Static vc31 download remains functional without network feed. */ });
+}());
+</script>
+</body>
+</html>
