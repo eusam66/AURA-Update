@@ -23,30 +23,17 @@ A página `docs/index.html` usa estilos CSS e JavaScript próprios, **sem plataf
 
 - Cabeçalho AURA Glass TV, identidade grafite/dourado-champanhe.
 - Descrição de divulgação voltada ao usuário.
-- Botão principal para APK público verificado.
+- Indicador **Disponível em breve** sem botão de download.
 - Recursos: filmes, séries, TV ao vivo, favoritos, perfis, EPG e atualização integrada.
 - Prévia de player e cartão Próximo episódio com **capturas ilustrativas de teste** (não prometem conteúdo incorporado).
 - Requisitos mínimos Android TV/Google TV Android 9+.
 - Instalação com confirmação do Android.
 - Aviso explícito de que o aplicativo não inclui conteúdo ou listas.
-- Links para GitHub Releases e suporte público.
+- Links de acompanhamento e suporte público, sem ofertas de APK.
 
-## Atualização automática do link no site
+## Pausa da distribuição
 
-A página lê o manifesto público estável:
-
-`https://raw.githubusercontent.com/eusam66/AURA-Update/main/updates/android/stable.json`
-
-Ao detectar `latest.version_code` válido, URLs oficiais do repositório e pacote esperado, atualiza:
-
-- botão de download,
-- versão informada,
-- notas da versão,
-- SHA-256.
-
-**Este mecanismo atualiza só o conteúdo da página**. Não altera APK, manifesto, assinatura ou o processo de publicação: o workflow de Release autorizado continua sendo o único responsável por disponibilizar novas versões.
-
-O fallback estático da página é a vc31; se o feed estiver temporariamente indisponível, o botão permanece direcionado ao APK público validado da vc31.
+O site foi colocado em modo **Disponível em breve**. O JavaScript que montava links de APK a partir de `stable.json` foi removido; não voltar a ativá-lo sem novo anúncio formal. Para retomar a distribuição será necessário restabelecer o feed, republicar as Releases aprovadas e restaurar os botões de download de forma coordenada.
 
 ## Divulgação
 
@@ -54,7 +41,7 @@ O fallback estático da página é a vc31; se o feed estiver temporariamente ind
 
 **Link do site — só divulgar após o GitHub Pages mostrar site publicado:** https://eusam66.github.io/AURA-Update/
 
-**Link para APK vc31:** https://github.com/eusam66/AURA-Update/releases/download/android-stable-vc31/AURA-Glass-TV-stable-vc31.apk
+**APK:** não disponível para novos downloads neste momento.
 
 ## Atenções
 
