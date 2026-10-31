@@ -8,11 +8,23 @@
 
 [**⬇️ BAIXAR APK OFICIAL — PREMIUM vc31**](https://github.com/eusam66/AURA-Update/releases/download/android-stable-vc31/AURA-Glass-TV-stable-vc31.apk) · [**Todas as versões**](https://github.com/eusam66/AURA-Update/releases) · [**Como instalar**](docs/INSTALL_ANDROID.md)
 
-**Android TV 9+ · Google TV · versão estável 0.9.9-aura-premium**
+**🧪 BETA PÚBLICO GRATUITO · Android TV 9+ · Google TV · versão estável 0.9.9-aura-premium**
 
 </div>
 
 ---
+
+## 🧪 Beta público gratuito — venha testar!
+
+A versão atual do **AURA Glass TV está disponível gratuitamente** para que usuários de diferentes dispositivos Android TV e Google TV possam experimentar o player e contribuir com relatos de erros e ideias.
+
+**Não existe cobrança, ativação paga nem assinatura em vigor nesta edição beta.** O nome **Premium** descreve a experiência visual, não um pagamento obrigatório.
+
+**Planejamos uma edição comercial futuramente**, depois de consolidar uma base estável. Data, preços, critérios para participantes beta e condições de transição serão comunicados previamente; a gratuidade atual não é uma promessa de acesso gratuito vitalício.
+
+**Ajude a melhorar o AURA:** [🐛 Relatar um erro](https://github.com/eusam66/AURA-Update/issues/new?template=bug-report.yml) · [✨ Sugerir melhoria](https://github.com/eusam66/AURA-Update/issues/new?template=feature-request.yml) · [Ver relatos públicos](https://github.com/eusam66/AURA-Update/issues).
+
+> **Privacidade:** não publique em Issues senhas, URLs de playlists, credenciais Xtream, tokens, dados de usuários ou capturas com informações privadas.
 
 ## Conheça o AURA Glass TV
 
@@ -102,6 +114,8 @@ O AURA possui um sistema próprio de atualização integrado ao Android TV, dist
 - [🛠️ Problemas e feedback](https://github.com/eusam66/AURA-Update/issues)
 
 ## Perguntas frequentes
+
+**O AURA é gratuito?** Sim, durante o beta público. No futuro poderá existir uma edição paga, com comunicação prévia das condições e opções para os participantes desta fase.
 
 **O AURA inclui canais ou filmes?** Não. O usuário deve conectar suas fontes compatíveis e autorizadas.
 
