@@ -1,12 +1,14 @@
+> **SUSPENSÃO TEMPORÁRIA DE NOVAS DISTRIBUIÇÕES:** o proprietário determinou que a página pública mostre **Disponível em breve**. **NÃO publicar novas versões ou reativar releases/feeds automaticamente** enquanto durar esta suspensão, mesmo que os testes tenham passado. Esta decisão posterior suspende a autorização global de publicação automática até nova autorização expressa. Instalações existentes permanecem intactas. Consulte o histórico e a Issue #35 no repositório privado.
+
 # Publicação verificada do AURA Glass TV (Android TV)
 
 ## Estado atual
 
-**Premium vc31 publicada** e ativa no canal `stable` (31/10/2026). A edição Lite continua com feed inativo até lançamento aprovado. O repositório público `eusam66/AURA-Update` fornece somente material de distribuição, sem código-fonte privado do aplicativo.
+**Premium vc31 foi publicada em 31/10/2026, mas a distribuição pública está temporariamente suspensa.** A edição Lite continua com feed inativo até lançamento aprovado. O repositório público `eusam66/AURA-Update` fornece somente material de distribuição, sem código-fonte privado do aplicativo.
 
 ## Autorização permanente
 
-O proprietário autorizou **publicar futuras correções/versões Android após a conclusão do desenvolvimento e aprovação integral dos gates técnicos e de segurança**, sem pedir aprovação individual para cada versão. Esta autorização não permite publicação de build incompleto nem instalação silenciosa nas TVs; mudanças de assinatura/pacote, custos ou migrações destrutivas exigem decisão separada. Política registrada também na Issue #35 do repositório privado.
+O proprietário havia autorizado a publicação automática de futuras correções após os gates. **Essa autorização está temporariamente suspensa para impedir novas distribuições públicas até novo consentimento.** Esta autorização não permite publicação de build incompleto nem instalação silenciosa nas TVs; mudanças de assinatura/pacote, custos ou migrações destrutivas exigem decisão separada. Política registrada também na Issue #35 do repositório privado.
 
 ## Workflow oficial e obrigatório
 
@@ -43,8 +45,8 @@ O usuário final consulta o AURA Update no próprio aplicativo e autoriza o down
 
 - Repositório e README: https://github.com/eusam66/AURA-Update
 - Página estática: `docs/index.html`. Ativar GitHub Pages a partir de `main /docs` (veja `docs/PUBLISH_SITE.md`).
-- A página estática consulta o feed público `updates/android/stable.json` no navegador para exibir versão, hash, notas e link do APK sempre atualizados; falhas de rede mantêm o link da vc31 como fallback.
-- O README menciona a vc31 e deverá ser atualizado durante próximas releases (ou utilizar o link permanente para Releases).
+- A página estática agora mostra **Disponível em breve**, sem download e sem consulta dinâmica para reativar links.
+- O README anuncia a suspensão da distribuição e mantém informações públicas de apresentação.
 - Galeria: imagens demonstrativas da interface provenientes dos testes sintéticos, **não dados/capturas de usuários**.
 
 **Não adicionar à página pública um pacote, preço, recursos de licenciamento ou canais que ainda não estejam implementados e aprovados.**
