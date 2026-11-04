@@ -4,15 +4,15 @@
   "channel": "stable",
   "status": "released",
   "latest": {
-    "version_code": 32,
-    "version_name": "1.0.0-aura-visual-premium-2",
+    "version_code": 33,
+    "version_name": "1.0.1-aura-premium-2.1",
     "package_name": "com.auratv.player.engine3",
     "min_sdk": 28,
-    "apk_url": "https://github.com/eusam66/AURA-Update/releases/download/android-stable-vc32/AURA-Glass-TV-stable-vc32.apk",
-    "apk_sha256": "204e607816a26533c60661f0c548b54c39f529d9e6104c74a4bc0def658e62ce",
-    "apk_size_bytes": 35185925,
+    "apk_url": "https://github.com/eusam66/AURA-Update/releases/download/android-stable-vc33/AURA-Glass-TV-stable-vc33.apk",
+    "apk_sha256": "346d6db2d4b76907799e8ba580d670a0a897d692f91be50c969fc5ac9fd55243",
+    "apk_size_bytes": 35464913,
     "signing_cert_sha256": "f5e7ba845b611c41d3b8354a04c461609b47b9eacfa59f25b16bafcfb144e3b9",
-    "notes": "Visual Premium 2.0 — Home cinematográfica e expansão suave; sidebar compacta sem Fixar menu; categorias horizontais; teclado AURA com resultados independentes e busca por categoria; nomes legíveis na TV ao Vivo; foco do QR corrigido. Atualização compatível sobre vc31, com o mesmo pacote e certificado.",
-    "published_at": "2026-11-04T04:12:54Z"
+    "notes": "Premium 2.1 vc33 — correcoes nos Favoritos, teclados, Home, catalogos, foco e EPG; AURA Surprise e Mini Player. AURA Sync preparado localmente; ativacao remota ainda pendente. Atualizacao compativel sobre vc32, preservando dados e assinatura.",
+    "published_at": "2026-11-04T21:36:42Z"
   }
 }
