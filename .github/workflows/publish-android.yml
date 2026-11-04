@@ -116,6 +116,17 @@ jobs:
           TAG="android-$CHANNEL-vc$VERSION_CODE"
           APK="dist/AURA-Glass-TV-$CHANNEL-vc$VERSION_CODE.apk"
           gh release create "$TAG" "$APK" --repo "$PUBLIC_REPO" --target main --title "AURA Glass TV $CHANNEL vc$VERSION_CODE" --notes "$NOTES" --latest=false
+      - name: Verify public HTTPS APK before activating the feed
+        shell: bash
+        run: |
+          set -euo pipefail
+          APK="dist/AURA-Glass-TV-$CHANNEL-vc$VERSION_CODE.apk"
+          URL="https://github.com/$PUBLIC_REPO/releases/download/android-$CHANNEL-vc$VERSION_CODE/AURA-Glass-TV-$CHANNEL-vc$VERSION_CODE.apk"
+          # This is an unauthenticated public download, not a second build or signature.
+          curl --fail --silent --show-error --location --proto '=https' --proto-redir '=https' --retry 4 --retry-all-errors --retry-delay 3 "$URL" --output /tmp/aura-public-verified.apk
+          echo "$EXPECTED_SHA  /tmp/aura-public-verified.apk" | sha256sum -c -
+          cmp "$APK" /tmp/aura-public-verified.apk
+          echo "Public APK matches the independently verified private artifact byte-for-byte."
       - name: Activate feed ONLY after Release exists
         shell: bash
         run: |
