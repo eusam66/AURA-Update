@@ -4,15 +4,15 @@
   "channel": "stable",
   "status": "released",
   "latest": {
-    "version_code": 33,
-    "version_name": "1.0.1-aura-premium-2.1",
+    "version_code": 34,
+    "version_name": "1.0.2-aura-premium-hotfix",
     "package_name": "com.auratv.player.engine3",
     "min_sdk": 28,
-    "apk_url": "https://github.com/eusam66/AURA-Update/releases/download/android-stable-vc33/AURA-Glass-TV-stable-vc33.apk",
-    "apk_sha256": "346d6db2d4b76907799e8ba580d670a0a897d692f91be50c969fc5ac9fd55243",
-    "apk_size_bytes": 35464913,
+    "apk_url": "https://github.com/eusam66/AURA-Update/releases/download/android-stable-vc34/AURA-Glass-TV-stable-vc34.apk",
+    "apk_sha256": "b7ee81155cd5ab2b6f46f7dce156f42eddfa53645a6bbe5e96b877d3920b753f",
+    "apk_size_bytes": 35481301,
     "signing_cert_sha256": "f5e7ba845b611c41d3b8354a04c461609b47b9eacfa59f25b16bafcfb144e3b9",
-    "notes": "Premium 2.1 vc33 — correcoes nos Favoritos, teclados, Home, catalogos, foco e EPG; AURA Surprise e Mini Player. AURA Sync preparado localmente; ativacao remota ainda pendente. Atualizacao compativel sobre vc32, preservando dados e assinatura.",
-    "published_at": "2026-11-04T21:36:42Z"
+    "notes": "Premium vc34 — hotfix de foco D-pad no Mini Player, halo dourado alinhado e categorias de TV ao Vivo reiniciando no primeiro canal. 80 testes direcionados aprovados. Atualizacao sobre vc33, com pacote e assinatura preservados. Homologacao fisica pendente.",
+    "published_at": "2026-11-05T00:39:18Z"
   }
 }
