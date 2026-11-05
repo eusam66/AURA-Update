@@ -4,15 +4,15 @@
   "channel": "stable",
   "status": "released",
   "latest": {
-    "version_code": 34,
-    "version_name": "1.0.2-aura-premium-hotfix",
+    "version_code": 35,
+    "version_name": "1.0.3-aura-premium",
     "package_name": "com.auratv.player.engine3",
     "min_sdk": 28,
-    "apk_url": "https://github.com/eusam66/AURA-Update/releases/download/android-stable-vc34/AURA-Glass-TV-stable-vc34.apk",
-    "apk_sha256": "b7ee81155cd5ab2b6f46f7dce156f42eddfa53645a6bbe5e96b877d3920b753f",
-    "apk_size_bytes": 35481301,
+    "apk_url": "https://github.com/eusam66/AURA-Update/releases/download/android-stable-vc35/AURA-Glass-TV-stable-vc35.apk",
+    "apk_sha256": "19d32fbc751076941cbc307c1748226e9572722dbc50e2b1f5f1dccb45c1650b",
+    "apk_size_bytes": 35546833,
     "signing_cert_sha256": "f5e7ba845b611c41d3b8354a04c461609b47b9eacfa59f25b16bafcfb144e3b9",
-    "notes": "Premium vc34 — hotfix de foco D-pad no Mini Player, halo dourado alinhado e categorias de TV ao Vivo reiniciando no primeiro canal. 80 testes direcionados aprovados. Atualizacao sobre vc33, com pacote e assinatura preservados. Homologacao fisica pendente.",
-    "published_at": "2026-11-05T00:39:18Z"
+    "notes": "AURA Glass TV Premium vc35: banner cinematografico com sinopse e metadados; perfis mais intuitivos; Configuracoes simplificadas; foco dourado e categorias Xtream corrigidos; AURA Sync integrado para testes. Atualize sobre a vc34 sem desinstalar. Homologacao fisica pendente.",
+    "published_at": "2026-11-05T03:15:30Z"
   }
 }
