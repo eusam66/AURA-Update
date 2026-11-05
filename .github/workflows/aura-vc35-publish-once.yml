@@ -1,0 +1,49 @@
+name: AURA vc35 one-time publication dispatcher
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/aura-vc35-publish-once.yml'
+
+permissions:
+  contents: read
+  actions: write
+
+concurrency:
+  group: aura-vc35-one-time-dispatch
+  cancel-in-progress: false
+
+jobs:
+  dispatch-official-publisher:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: eusam66/AURA-Update
+      NOTES: "AURA Glass TV Premium vc35: banner cinematografico com sinopse e metadados; perfis mais intuitivos; Configuracoes simplificadas; foco dourado e categorias Xtream corrigidos; AURA Sync integrado para testes. Atualize sobre a vc34 sem desinstalar. Homologacao fisica pendente."
+    steps:
+      - name: Check stable feed and exact version gate
+        run: |
+          set -euo pipefail
+          version=$(gh api repos/$REPO/contents/updates/android/stable.json -H "Accept: application/vnd.github.raw+json" | python3 -c 'import json,sys; print(json.load(sys.stdin)["latest"]["version_code"])')
+          if [ "$version" -ge 35 ]; then
+            echo "::error::The stable feed is already at vc35 or newer; refusing re-dispatch."
+            exit 1
+          fi
+          if gh release view android-stable-vc35 --repo "$REPO" >/dev/null 2>&1; then
+            echo "::error::vc35 release tag already exists; refusing overwrite."
+            exit 1
+          fi
+      - name: Dispatch existing verified release workflow
+        run: |
+          set -euo pipefail
+          gh workflow run publish-android.yml --repo "$REPO" --ref main \
+            -f channel=stable \
+            -f source_run_id=41957001184 \
+            -f source_artifact_name=AURA-Glass-TV-Premium-engine3-vc35 \
+            -f expected_sha256=19d32fbc751076941cbc307c1748226e9572722dbc50e2b1f5f1dccb45c1650b \
+            -f version_code=35 \
+            -f version_name=1.0.3-aura-premium \
+            -f release_notes="$NOTES"
+          echo "Dispatched mandatory verified publication workflow."
