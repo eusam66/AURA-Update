@@ -4,15 +4,15 @@
   "channel": "stable",
   "status": "released",
   "latest": {
-    "version_code": 35,
-    "version_name": "1.0.3-aura-premium",
+    "version_code": 36,
+    "version_name": "1.0.4-aura-premium",
     "package_name": "com.auratv.player.engine3",
     "min_sdk": 28,
-    "apk_url": "https://github.com/eusam66/AURA-Update/releases/download/android-stable-vc35/AURA-Glass-TV-stable-vc35.apk",
-    "apk_sha256": "19d32fbc751076941cbc307c1748226e9572722dbc50e2b1f5f1dccb45c1650b",
-    "apk_size_bytes": 35546833,
+    "apk_url": "https://github.com/eusam66/AURA-Update/releases/download/android-stable-vc36/AURA-Glass-TV-stable-vc36.apk",
+    "apk_sha256": "dd137bf962b51b37882975ee3c60c72a512203202dcf2f46011420b72c4667e4",
+    "apk_size_bytes": 35628753,
     "signing_cert_sha256": "f5e7ba845b611c41d3b8354a04c461609b47b9eacfa59f25b16bafcfb144e3b9",
-    "notes": "AURA Glass TV Premium vc35: banner cinematografico com sinopse e metadados; perfis mais intuitivos; Configuracoes simplificadas; foco dourado e categorias Xtream corrigidos; AURA Sync integrado para testes. Atualize sobre a vc34 sem desinstalar. Homologacao fisica pendente.",
-    "published_at": "2026-11-05T03:15:30Z"
+    "notes": "Premium vc36: rolagem e alinhamento de Configurações; editor de perfis compacto; categorias simplificadas; navegação do AURA Sync; AURA Surprise temporariamente desativado; aviso Premium e consulta de atualizações por inicialização. Atualize sobre a vc35 sem desinstalar. Homologação física pendente.",
+    "published_at": "2026-11-05T04:52:49Z"
   }
 }
