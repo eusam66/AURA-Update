@@ -2,6 +2,17 @@
   "schema_version": 1,
   "platform": "android-tv",
   "channel": "lite",
-  "status": "unreleased",
-  "latest": null
+  "status": "released",
+  "latest": {
+    "version_code": 37,
+    "version_name": "1.0.5-aura-lite",
+    "package_name": "com.auratv.player.engine3",
+    "min_sdk": 28,
+    "apk_url": "https://github.com/eusam66/AURA-Update/releases/download/android-lite-vc37/AURA-Glass-TV-lite-vc37.apk",
+    "apk_sha256": "0415468e201b3c91c368b98aad5054a0f4bb6129f0880453ca04367308ba44aa",
+    "apk_size_bytes": 35678377,
+    "signing_cert_sha256": "f5e7ba845b611c41d3b8354a04c461609b47b9eacfa59f25b16bafcfb144e3b9",
+    "notes": "AURA Glass TV Lite vc37: otimizacao para Mi TV Stick Full HD 1 GB; Home leve e sinopse automatica; navegacao D-pad fluida; Mini Player com sessao unica; categorias, EPG, perfis e importacao multipla; Sync manual com Premium. Homologada fisicamente na Mi TV Stick. Atualize sobre a vc36 sem desinstalar.",
+    "published_at": "2026-11-07T16:02:01Z"
+  }
 }
