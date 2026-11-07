@@ -1,0 +1,55 @@
+name: AURA Lite vc37 one-time publication dispatcher
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/aura-lite-vc37-publish-once.yml'
+
+permissions:
+  contents: read
+  actions: write
+
+concurrency:
+  group: aura-lite-vc37-one-time-dispatch
+  cancel-in-progress: false
+
+jobs:
+  dispatch-official-publisher:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: eusam66/AURA-Update
+      NOTES: "AURA Glass TV Lite vc37: otimizacao para Mi TV Stick Full HD 1 GB; Home leve e sinopse automatica; navegacao D-pad fluida; Mini Player com sessao unica; categorias, EPG, perfis e importacao multipla; Sync manual com Premium. Homologada fisicamente na Mi TV Stick. Atualize sobre a vc36 sem desinstalar."
+    steps:
+      - name: Verify exact Lite and stable feeds before dispatch
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh api repos/$REPO/contents/updates/android/lite.json -H "Accept: application/vnd.github.raw+json" > /tmp/aura-lite.json
+          gh api repos/$REPO/contents/updates/android/stable.json -H "Accept: application/vnd.github.raw+json" > /tmp/aura-stable.json
+          python3 - <<'PY'
+          import json
+          lite=json.load(open('/tmp/aura-lite.json'))
+          stable=json.load(open('/tmp/aura-stable.json'))
+          assert lite.get('channel') == 'lite' and lite.get('status') == 'unreleased' and lite.get('latest') is None, 'Lite feed has changed; refusing to publish'
+          assert stable.get('channel') == 'stable' and stable.get('status') == 'released' and stable.get('latest', {}).get('version_code') == 36, 'Premium stable changed; manual review required'
+          PY
+          if gh release view android-lite-vc37 --repo "$REPO" >/dev/null 2>&1; then
+            echo "::error::Lite vc37 Release tag already exists; refusing to overwrite."
+            exit 1
+          fi
+      - name: Dispatch mandatory verified source-artifact publication workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh workflow run publish-android.yml --repo "$REPO" --ref main \
+            -f channel=lite \
+            -f source_run_id=42082595363 \
+            -f source_artifact_name=AURA-Glass-TV-Lite-MiStick-vc37 \
+            -f expected_sha256=0415468e201b3c91c368b98aad5054a0f4bb6129f0880453ca04367308ba44aa \
+            -f version_code=37 \
+            -f version_name=1.0.5-aura-lite \
+            -f release_notes="$NOTES"
+          echo "Official verified Lite vc37 publication dispatched."
