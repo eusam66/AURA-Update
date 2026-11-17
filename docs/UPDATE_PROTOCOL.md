@@ -2,6 +2,10 @@
 
 **Versão de contrato do manifesto: 1.** Cliente de atualização do AURA Glass TV implementado e homologado na Philips Android TV.
 
+## Alerta: beta pública vc47 separada
+
+A Premium vc47 foi publicada em [Release beta independente](https://github.com/eusam66/AURA-Update/releases/tag/android-beta-vc47), sem alterar os feeds abaixo. A beta é destinada a **novas instalações**; seu certificado SHA-256 é `45bbf20773d4da2e5a2bc83d12ca6e3283b04119a1b16e0226a8e71d573b22eb`, diferente do certificado original `f5e7ba...` do Stable vc36/Lite vc37. Não apontar automaticamente os canais legados para a beta e não alterar o pin antigo. Veja [SECURITY.md](../../SECURITY.md).
+
 ## Canais
 
 - **Premium/Stable (ativo):** https://raw.githubusercontent.com/eusam66/AURA-Update/main/updates/android/stable.json
