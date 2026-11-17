@@ -1,10 +1,10 @@
-> **SUSPENSÃO TEMPORÁRIA DE NOVAS DISTRIBUIÇÕES:** o proprietário determinou que a página pública mostre **Disponível em breve**. **NÃO publicar novas versões ou reativar releases/feeds automaticamente** enquanto durar esta suspensão, mesmo que os testes tenham passado. Esta decisão posterior suspende a autorização global de publicação automática até nova autorização expressa. Instalações existentes permanecem intactas. Consulte o histórico e a Issue #35 no repositório privado.
+> **STATUS EM 17/11/2026:** a **Premium vc47 foi autorizada e publicada como beta pública gratuita separada** em `android-beta-vc47`, exclusiva para novas instalações. A suspensão da distribuição como atualização automática **Stable/Lite permanece**; os feeds dessas linhas não foram alterados. A autorização de publicar a beta não constitui liberação para merges, builds novos ou atualização do canal Stable. Consulte [SECURITY.md](../SECURITY.md) e a [Release](https://github.com/eusam66/AURA-Update/releases/tag/android-beta-vc47).
 
 # Publicação verificada do AURA Glass TV (Android TV)
 
 ## Estado atual
 
-**Premium vc31 foi publicada em 31/10/2026, mas a distribuição pública está temporariamente suspensa.** A edição Lite continua com feed inativo até lançamento aprovado. O repositório público `eusam66/AURA-Update` fornece somente material de distribuição, sem código-fonte privado do aplicativo.
+**Beta pública Premium vc47: publicada em Release independente.** A antiga Stable vc36 e a Lite vc37 usam certificado diferente e não podem receber vc47 por atualização direta. As versões anteriores do protocolo e workflows abaixo continuam documentadas para os canais Stable/Lite, mas não se aplicam à beta vc47.
 
 ## Autorização permanente
 
