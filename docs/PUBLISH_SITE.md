@@ -1,3 +1,5 @@
+> **ATUALIZAÇÃO EM 17/11/2026:** a página GitHub Pages e o README foram atualizados para a beta pública gratuita vc47. O download oficial agora é https://github.com/eusam66/AURA-Update/releases/download/android-beta-vc47/AURA-Glass-TV-Premium-vc47.apk. A beta é para novas instalações; os feeds Stable/Lite não foram migrados devido à diferença de assinatura. O restante deste arquivo registra o processo de implantação e o modo “Disponível em breve” anterior.
+
 # Como colocar a página oficial do AURA Glass TV no ar (GitHub Pages)
 
 A vitrine pública já está preparada em `docs/index.html`, no branch `main` do repositório público `eusam66/AURA-Update`.
