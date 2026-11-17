@@ -1,0 +1,110 @@
+name: Publish AURA Premium vc47 beta — one-time verified
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/publish-vc47-beta-once.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: aura-update-release
+  cancel-in-progress: false
+
+jobs:
+  verified-beta:
+    if: github.repository == 'eusam66/AURA-Update'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      GH_TOKEN: ${{ github.token }}
+      SOURCE_READ_TOKEN: ${{ secrets.AURA_SOURCE_READ_TOKEN }}
+      SOURCE_REPO: eusam66/AURA-TV-Player
+      PUBLIC_REPO: eusam66/AURA-Update
+      SOURCE_RUN: "44030708985"
+      SOURCE_ARTIFACT: AURA-Premium-vc47-PRIVATE-PHILIPS
+      EXPECTED_SHA: 0efdb60981c4f9ceb083b4eb351647eb00fa6cfbec0654217ca77ad4cfd914dd
+      EXPECTED_CERT: 45bbf20773d4da2e5a2bc83d12ca6e3283b04119a1b16e0226a8e71d573b22eb
+      EXPECTED_BYTES: "36398825"
+    steps:
+      - uses: actions/checkout@v4
+      - name: Preconditions — do not affect stable or Lite channels
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ -n "$SOURCE_READ_TOKEN" ]] || { echo "::error::Missing read-only source access secret"; exit 1; }
+          python3 scripts/validate_manifest.py
+          python3 -m unittest discover -s tests -v
+          if gh release view android-beta-vc47 --repo "$PUBLIC_REPO" >/dev/null 2>&1; then
+            echo "::error::Beta release already exists; refusing overwrite"
+            exit 1
+          fi
+      - name: Download EXACT signed vc47 from successful private Actions run
+        shell: bash
+        run: |
+          set -euo pipefail
+          result=$(GH_TOKEN="$SOURCE_READ_TOKEN" gh run view "$SOURCE_RUN" --repo "$SOURCE_REPO" --json conclusion --jq '.conclusion')
+          [[ "$result" == "success" ]] || { echo "::error::Source workflow not successful"; exit 1; }
+          mkdir -p private-artifact dist
+          GH_TOKEN="$SOURCE_READ_TOKEN" gh run download "$SOURCE_RUN" --repo "$SOURCE_REPO" --name "$SOURCE_ARTIFACT" --dir private-artifact
+          count=$(find private-artifact -type f -name '*.apk' | wc -l)
+          [[ "$count" -eq 1 ]] || { echo "::error::Expected exactly one APK"; exit 1; }
+          src=$(find private-artifact -type f -name '*.apk' -print -quit)
+          cp "$src" dist/AURA-Glass-TV-Premium-vc47.apk
+          printf '%s  %s\n' "$EXPECTED_SHA" dist/AURA-Glass-TV-Premium-vc47.apk | sha256sum -c -
+          [[ "$(stat -c %s dist/AURA-Glass-TV-Premium-vc47.apk)" == "$EXPECTED_BYTES" ]] || exit 1
+      - name: Validate APK package, signing certificate, SDK, and flags independently
+        shell: bash
+        run: |
+          set -euo pipefail
+          apk=dist/AURA-Glass-TV-Premium-vc47.apk
+          aapt=$(find "$ANDROID_HOME/build-tools" -maxdepth 2 -name aapt | sort -V | tail -1)
+          signer=$(find "$ANDROID_HOME/build-tools" -maxdepth 2 -name apksigner | sort -V | tail -1)
+          [[ -x "$aapt" && -x "$signer" ]] || exit 1
+          "$aapt" dump badging "$apk" > apk-badging.txt
+          "$aapt" dump xmltree "$apk" AndroidManifest.xml > apk-manifest.txt
+          grep -q "name='com.auratv.player.engine3'" apk-badging.txt
+          grep -q "versionCode='47'" apk-badging.txt
+          grep -q "versionName='1.0.15-aura-premium-smartskip-review-test'" apk-badging.txt
+          python3 scripts/verify_public_apk.py apk-badging.txt apk-manifest.txt
+          "$signer" verify --verbose --print-certs --print-certs-pem "$apk" > apk-verification.txt
+          python3 - <<'PY'
+          import re, base64, hashlib, os
+          report=open('apk-verification.txt',encoding='utf-8').read()
+          assert re.search(r'^Number of signers: 1\s*$',report,re.M),'Unexpected signer count'
+          certs=re.findall(r'-----BEGIN CERTIFICATE-----(.*?)-----END CERTIFICATE-----',report,re.S)
+          assert len(certs)==1,'Expected exactly one X.509 certificate'
+          cert=base64.b64decode(''.join(certs[0].split()),validate=True)
+          digest=hashlib.sha256(cert).hexdigest()
+          assert digest==os.environ['EXPECTED_CERT'], 'Signature differs from preverified vc47'
+          print('Verified vc47 signer:',digest)
+          PY
+      - name: Release public BETA for fresh installs only (do not alter stable feed)
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > /tmp/beta-notes.md <<'EOF'
+          AURA Glass TV Premium vc47 — beta pública gratuita para Android TV / Google TV (Android 9+).
+
+          Reprodutor de listas próprias M3U e Xtream Codes legalmente autorizadas. NÃO fornece canais, filmes, listas, credenciais nem assinaturas.
+
+          Recursos: interface Glass Premium grafite e dourado, TV ao Vivo e EPG conforme a fonte, filmes e séries, favoritos, perfis, histórico, retomar reprodução, Mini Player e próximo episódio.
+
+          Smart Skip: experimental, DESATIVADO POR PADRÃO. Recomendamos mantê-lo desativado; os botões de salto não foram homologados na Philips. Os demais recursos principais passaram na regressão física.
+
+          ATENÇÃO: somente para novas instalações. A assinatura deste APK difere da usada na release pública Stable vc36, portanto esta beta NÃO é uma atualização direta da vc36 ou da Lite vc37. NÃO desinstale versões antigas sem considerar a perda de dados. O feed Stable permanece inalterado.
+
+          APK original do CI da vc47, sem recompilação ou reassinatura nesta publicação.
+          SHA-256: 0efdb60981c4f9ceb083b4eb351647eb00fa6cfbec0654217ca77ad4cfd914dd
+          EOF
+          gh release create android-beta-vc47 dist/AURA-Glass-TV-Premium-vc47.apk --repo "$PUBLIC_REPO" --target main --title "AURA Glass TV Premium vc47 — Beta pública" --notes-file /tmp/beta-notes.md --prerelease --latest=false
+      - name: Verify unauthenticated public APK byte-for-byte
+        shell: bash
+        run: |
+          set -euo pipefail
+          url=https://github.com/eusam66/AURA-Update/releases/download/android-beta-vc47/AURA-Glass-TV-Premium-vc47.apk
+          curl --fail --silent --show-error --location --proto '=https' --proto-redir '=https' --retry 4 --retry-all-errors --retry-delay 3 "$url" -o /tmp/aura-public-beta.apk
+          printf '%s  %s\n' "$EXPECTED_SHA" /tmp/aura-public-beta.apk | sha256sum -c -
+          cmp dist/AURA-Glass-TV-Premium-vc47.apk /tmp/aura-public-beta.apk
+          echo "Verified public Beta APK is identical to original private vc47. Stable/Lite feeds unchanged."
