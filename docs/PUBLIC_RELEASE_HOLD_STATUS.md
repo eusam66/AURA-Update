@@ -1,3 +1,5 @@
+> **Atualização em 17/11/2026:** a Premium vc47 recebeu autorização específica para uma **beta pública gratuita para novas instalações**. Release: https://github.com/eusam66/AURA-Update/releases/tag/android-beta-vc47. Esta decisão não reativa o atualizador Stable/Lite nem resolve a incompatibilidade de assinatura com as instalações antigas. O registro abaixo documenta a suspensão anterior e deve ser interpretado historicamente.
+
 # AURA Glass TV — distribuição pública temporariamente pausada
 
 Os APKs Android previamente lançados foram mantidos no GitHub como **Releases em rascunho**, sem download público de seus assets.
